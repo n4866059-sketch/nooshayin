@@ -1,276 +1,347 @@
-// ========================================
-// نوش‌آیین | Shopping Cart
-// ========================================
+/* =====================================================
+   NOOSH-AYIN
+   Main JavaScript
+===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // -----------------------------
-    // عناصر صفحه
-    // -----------------------------
-    const cartButton = document.getElementById("cartButton");
-    const cartPanel = document.getElementById("cartPanel");
-    const closeCart = document.getElementById("closeCart");
-    const cartOverlay = document.getElementById("cartOverlay");
+  /* ================= CART ================= */
 
-    const cartItems = document.getElementById("cartItems");
-    const cartCount = document.getElementById("cartCount");
-    const cartTotal = document.getElementById("cartTotal");
+  const cartButton = document.getElementById("cartButton");
+  const cartPanel = document.getElementById("cartPanel");
+  const closeCart = document.getElementById("closeCart");
+  const cartOverlay = document.getElementById("cartOverlay");
 
-    // -----------------------------
-    // سبد خرید
-    // -----------------------------
-    let cart = JSON.parse(localStorage.getItem("nooshayinCart")) || [];
+  const cartItems = document.getElementById("cartItems");
+  const cartCount = document.getElementById("cartCount");
+  const cartTotal = document.getElementById("cartTotal");
 
-    // -----------------------------
-    // باز کردن سبد
-    // -----------------------------
-    function openCart() {
-        if (cartPanel) cartPanel.classList.add("active");
-        if (cartOverlay) cartOverlay.classList.add("active");
-        document.body.classList.add("cart-open");
+  let cart = JSON.parse(
+    localStorage.getItem("nooshAyinCart")
+  ) || [];
+
+
+  function openCart() {
+    cartPanel?.classList.add("open");
+    cartOverlay?.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+
+  function closeCartPanel() {
+    cartPanel?.classList.remove("open");
+    cartOverlay?.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+
+  cartButton?.addEventListener("click", openCart);
+  closeCart?.addEventListener("click", closeCartPanel);
+  cartOverlay?.addEventListener("click", closeCartPanel);
+
+
+  /* ================= CART RENDER ================= */
+
+  function formatPrice(number) {
+
+    return Number(number)
+      .toLocaleString("fa-IR") + " تومان";
+
+  }
+
+
+  function renderCart() {
+
+    if (!cartItems) return;
+
+    cartItems.innerHTML = "";
+
+    if (cart.length === 0) {
+
+      cartItems.innerHTML = `
+        <div class="empty-cart">
+          <div style="font-size:45px;margin-bottom:10px;">🛍️</div>
+          <p>سبد خرید شما خالی است.</p>
+        </div>
+      `;
+
+      cartCount.textContent = "۰";
+      cartTotal.textContent = "۰ تومان";
+
+      return;
     }
 
-    // -----------------------------
-    // بستن سبد
-    // -----------------------------
-    function closeCartPanel() {
-        if (cartPanel) cartPanel.classList.remove("active");
-        if (cartOverlay) cartOverlay.classList.remove("active");
-        document.body.classList.remove("cart-open");
-    }
 
-    // -----------------------------
-    // فرمت قیمت
-    // -----------------------------
-    function formatPrice(price) {
-        return Number(price).toLocaleString("fa-IR") + " تومان";
-    }
+    let total = 0;
+    let count = 0;
 
-    // -----------------------------
-    // ذخیره سبد
-    // -----------------------------
-    function saveCart() {
-        localStorage.setItem("nooshayinCart", JSON.stringify(cart));
-    }
 
-    // -----------------------------
-    // به‌روزرسانی تعداد
-    // -----------------------------
-    function updateCartCount() {
+    cart.forEach((item, index) => {
 
-        if (!cartCount) return;
+      total += item.price * item.quantity;
+      count += item.quantity;
 
-        const totalItems = cart.reduce((total, item) => {
-            return total + item.quantity;
-        }, 0);
 
-        cartCount.textContent = totalItems;
-    }
+      const itemElement = document.createElement("div");
 
-    // -----------------------------
-    // محاسبه مجموع قیمت
-    // -----------------------------
-    function updateCartTotal() {
+      itemElement.style.cssText = `
+        padding:16px 0;
+        border-bottom:1px solid rgba(198,161,91,.12);
+      `;
 
-        if (!cartTotal) return;
 
-        const total = cart.reduce((sum, item) => {
-            return sum + (item.price * item.quantity);
-        }, 0);
+      itemElement.innerHTML = `
 
-        cartTotal.textContent = formatPrice(total);
-    }
+        <div style="
+          display:flex;
+          justify-content:space-between;
+          gap:10px;
+        ">
 
-    // -----------------------------
-    // نمایش محصولات داخل سبد
-    // -----------------------------
-    function renderCart() {
+          <div>
 
-        if (!cartItems) return;
+            <strong style="
+              color:#F3E8D7;
+              display:block;
+              margin-bottom:5px;
+            ">
+              ${item.name}
+            </strong>
 
-        cartItems.innerHTML = "";
+            <span style="
+              color:#C6A15B;
+              font-size:13px;
+            ">
+              ${formatPrice(item.price)}
+            </span>
 
-        if (cart.length === 0) {
+          </div>
 
-            cartItems.innerHTML = `
-                <div class="empty-cart">
-                    <div class="empty-cart-icon">🛒</div>
-                    <p>سبد خرید شما خالی است.</p>
-                    <span>محصول مورد علاقه‌تان را انتخاب کنید 🌿</span>
-                </div>
-            `;
 
-            updateCartCount();
-            updateCartTotal();
-            return;
-        }
+          <button
+            data-remove="${index}"
+            style="
+              background:none;
+              color:#AAA49A;
+              font-size:20px;
+            "
+          >
+            ×
+          </button>
 
-        cart.forEach((item, index) => {
+        </div>
 
-            const cartItem = document.createElement("div");
 
-            cartItem.className = "cart-item";
+        <div style="
+          display:flex;
+          align-items:center;
+          gap:10px;
+          margin-top:12px;
+        ">
 
-            cartItem.innerHTML = `
-                <div class="cart-item-info">
-                    <h4>${item.name}</h4>
-                    <p>${formatPrice(item.price)}</p>
-                </div>
+          <button
+            data-minus="${index}"
+            style="
+              width:30px;
+              height:30px;
+              border-radius:8px;
+              background:#0B2A22;
+              color:#EADFCE;
+            "
+          >
+            −
+          </button>
 
-                <div class="cart-item-controls">
+          <span>${item.quantity}</span>
 
-                    <button 
-                        class="quantity-btn decrease-btn"
-                        data-index="${index}">
-                        −
-                    </button>
+          <button
+            data-plus="${index}"
+            style="
+              width:30px;
+              height:30px;
+              border-radius:8px;
+              background:#7F1820;
+              color:#fff;
+            "
+          >
+            +
+          </button>
 
-                    <span>${item.quantity}</span>
+        </div>
+      `;
 
-                    <button 
-                        class="quantity-btn increase-btn"
-                        data-index="${index}">
-                        +
-                    </button>
 
-                </div>
+      cartItems.appendChild(itemElement);
 
-                <button 
-                    class="remove-item"
-                    data-index="${index}"
-                    aria-label="حذف محصول">
-                    ×
-                </button>
-            `;
+    });
 
-            cartItems.appendChild(cartItem);
-        });
 
-        updateCartCount();
-        updateCartTotal();
-    }
+    cartCount.textContent =
+      Number(count).toLocaleString("fa-IR");
 
-    // -----------------------------
-    // افزودن محصول به سبد
-    // -----------------------------
-    function addToCart(name, price) {
+    cartTotal.textContent =
+      formatPrice(total);
 
-        const existingProduct = cart.find(item => item.name === name);
 
-        if (existingProduct) {
-
-            existingProduct.quantity += 1;
-
-        } else {
-
-            cart.push({
-                name: name,
-                price: Number(price),
-                quantity: 1
-            });
-        }
-
-        saveCart();
-        renderCart();
-
-        openCart();
-    }
-
-    // -----------------------------
-    // دکمه‌های افزودن به سبد
-    // -----------------------------
-    document.querySelectorAll(".add-to-cart").forEach(button => {
+    document
+      .querySelectorAll("[data-remove]")
+      .forEach(button => {
 
         button.addEventListener("click", () => {
 
-            const name = button.dataset.name;
-            const price = button.dataset.price;
+          const index =
+            Number(button.dataset.remove);
 
-            if (!name || !price) {
-                console.warn("اطلاعات محصول کامل نیست.");
-                return;
-            }
+          cart.splice(index, 1);
 
-            addToCart(name, price);
+          saveCart();
+          renderCart();
+
         });
 
-    });
+      });
 
-    // -----------------------------
-    // کنترل تعداد و حذف
-    // -----------------------------
-    if (cartItems) {
 
-        cartItems.addEventListener("click", (event) => {
+    document
+      .querySelectorAll("[data-plus]")
+      .forEach(button => {
 
-            const button = event.target.closest("button");
+        button.addEventListener("click", () => {
 
-            if (!button) return;
+          const index =
+            Number(button.dataset.plus);
 
-            const index = Number(button.dataset.index);
+          cart[index].quantity++;
 
-            if (Number.isNaN(index) || !cart[index]) return;
+          saveCart();
+          renderCart();
 
-            // افزایش
-            if (button.classList.contains("increase-btn")) {
-
-                cart[index].quantity += 1;
-            }
-
-            // کاهش
-            else if (button.classList.contains("decrease-btn")) {
-
-                cart[index].quantity -= 1;
-
-                if (cart[index].quantity <= 0) {
-                    cart.splice(index, 1);
-                }
-            }
-
-            // حذف
-            else if (button.classList.contains("remove-item")) {
-
-                cart.splice(index, 1);
-            }
-
-            saveCart();
-            renderCart();
         });
 
+      });
+
+
+    document
+      .querySelectorAll("[data-minus]")
+      .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+          const index =
+            Number(button.dataset.minus);
+
+          if (cart[index].quantity > 1) {
+
+            cart[index].quantity--;
+
+          } else {
+
+            cart.splice(index, 1);
+
+          }
+
+          saveCart();
+          renderCart();
+
+        });
+
+      });
+
+  }
+
+
+  function saveCart() {
+
+    localStorage.setItem(
+      "nooshAyinCart",
+      JSON.stringify(cart)
+    );
+
+  }
+
+
+  window.addToCart = function(name, price) {
+
+    const existing =
+      cart.find(item => item.name === name);
+
+
+    if (existing) {
+
+      existing.quantity++;
+
+    } else {
+
+      cart.push({
+        name: name,
+        price: Number(price),
+        quantity: 1
+      });
+
     }
 
-    // -----------------------------
-    // باز کردن سبد
-    // -----------------------------
-    if (cartButton) {
-        cartButton.addEventListener("click", openCart);
-    }
 
-    // -----------------------------
-    // بستن سبد
-    // -----------------------------
-    if (closeCart) {
-        closeCart.addEventListener("click", closeCartPanel);
-    }
-
-    if (cartOverlay) {
-        cartOverlay.addEventListener("click", closeCartPanel);
-    }
-
-    // -----------------------------
-    // بستن با دکمه Escape
-    // -----------------------------
-    document.addEventListener("keydown", (event) => {
-
-        if (event.key === "Escape") {
-            closeCartPanel();
-        }
-
-    });
-
-    // -----------------------------
-    // اجرای اولیه
-    // -----------------------------
+    saveCart();
     renderCart();
+    openCart();
+
+  };
+
+
+  /* ================= SEARCH ================= */
+
+  const searchButton =
+    document.getElementById("searchButton");
+
+  const searchBox =
+    document.getElementById("searchBox");
+
+  const closeSearch =
+    document.getElementById("closeSearch");
+
+  const searchInput =
+    document.getElementById("searchInput");
+
+
+  searchButton?.addEventListener("click", () => {
+
+    searchBox?.classList.toggle("open");
+
+    if (searchBox?.classList.contains("open")) {
+
+      setTimeout(() => {
+        searchInput?.focus();
+      }, 250);
+
+    }
+
+  });
+
+
+  closeSearch?.addEventListener("click", () => {
+
+    searchBox?.classList.remove("open");
+
+  });
+
+
+  /* ================= ESCAPE ================= */
+
+  document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+
+      closeCartPanel();
+
+      searchBox?.classList.remove("open");
+
+    }
+
+  });
+
+
+  /* ================= INITIAL ================= */
+
+  renderCart();
 
 });
