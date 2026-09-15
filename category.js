@@ -536,6 +536,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const grid =
     document.getElementById("productsGrid");
+     /* ================= CATEGORY PAGE CHECK ================= */
+
+  if (
+    !titleElement ||
+    !descriptionElement ||
+    !countElement ||
+    !breadcrumbElement ||
+    !productsCountElement ||
+    !grid
+  ) {
+    return;
+  }
 
 
   /* ================= HEADER DATA ================= */
