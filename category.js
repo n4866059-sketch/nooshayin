@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     در مرحله بعد وارد همین بخش می‌شوند.
   */
 
-  const products = {
+  window.products = {
 
     oils: [
 
