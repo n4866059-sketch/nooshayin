@@ -649,14 +649,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
       card.innerHTML = `
+      <div class="product-image">
 
-<div class="product-image">
-
-<img
-  src="./images/${product.id}.jpg"
-  alt="${product.name}"
-  class="product-real-image"
->
+  <img
+    src="./images/${product.id}.jpg"
     alt="${product.name}"
     class="product-real-image"
     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -670,6 +666,7 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
 
 </div>
+
 
 
         <div class="product-info">
