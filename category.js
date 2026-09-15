@@ -652,8 +652,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <div class="product-image">
 
-  <img
-    src="images/${product.id}.jpg"
+<img
+  src="./images/${product.id}.jpg"
+  alt="${product.name}"
+  class="product-real-image"
+>
     alt="${product.name}"
     class="product-real-image"
     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
