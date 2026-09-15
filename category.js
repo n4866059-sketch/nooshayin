@@ -650,13 +650,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
       card.innerHTML = `
 
-        <div class="product-image">
+<div class="product-image">
 
-          <div class="product-image-placeholder">
-            ${product.icon}
-          </div>
+  <img
+    src="images/${product.id}.jpg"
+    alt="${product.name}"
+    class="product-real-image"
+    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+  >
 
-        </div>
+  <div
+    class="product-image-placeholder"
+    style="display:none;"
+  >
+    ${product.icon}
+  </div>
+
+</div>
 
 
         <div class="product-info">
