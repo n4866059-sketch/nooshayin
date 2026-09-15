@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     oils: [
 
       {
-        id: "mini-pistachio-oil.jpg",
+        id: "mini-pistachio-oil",
         name: "مینی روغن پسته کاژان",
         price: 1465000,
         stock: 1250,
