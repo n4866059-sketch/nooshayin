@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>نوش‌آیین | فروشگاه محصولات طبیعی</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>نوش‌آیین | عطر طبیعت، طعم اصالت</title>
 
   <meta
     name="description"
-    content="نوش‌آیین؛ فروشگاه آنلاین چای، دمنوش، روغن‌های طبیعی، قهوه و محصولات منتخب."
-  >
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet"
+    content="نوش‌آیین؛ فروشگاه محصولات طبیعی، چای، دمنوش، قهوه و روغن‌های گیاهی."
   >
 
   <link rel="stylesheet" href="style.css">
@@ -26,32 +24,45 @@
   <!-- ================= HEADER ================= -->
 
   <header class="site-header">
+
     <div class="container header-inner">
 
-      <a href="index.html" class="brand">
-        <span class="brand-symbol">ن</span>
-
-        <span class="brand-text">
-          <strong>نوش‌آیین</strong>
-          <small>طعم طبیعت، آیین اصالت</small>
-        </span>
+      <a href="index.html" class="logo">
+        نوش‌آیین
       </a>
 
       <nav class="main-nav">
-        <a href="index.html" class="active">خانه</a>
-        <a href="#categories">دسته‌بندی‌ها</a>
-        <a href="#story">درباره نوش‌آیین</a>
-        <a href="#benefits">مزایای ما</a>
+
+        <a href="index.html">
+          خانه
+        </a>
+
+        <a href="category.html?category=oils">
+          روغن‌ها
+        </a>
+
+        <a href="category.html?category=tea">
+          چای و دمنوش
+        </a>
+
+        <a href="category.html?category=coffee">
+          قهوه و شکلات
+        </a>
+
+        <a href="category.html?category=featured">
+          محصولات منتخب
+        </a>
+
       </nav>
 
       <div class="header-actions">
 
         <button
-          class="icon-btn"
-          id="searchButton"
+          class="search-button"
+          id="searchToggle"
           aria-label="جستجو"
         >
-          ⌕
+          🔍
         </button>
 
         <button
@@ -59,88 +70,83 @@
           id="cartButton"
           aria-label="سبد خرید"
         >
-          <span>سبد خرید</span>
-          <b id="cartCount">0</b>
+          🛒
+          <span id="cartCount">0</span>
         </button>
 
       </div>
 
     </div>
+
   </header>
 
 
   <!-- ================= SEARCH ================= -->
 
-  <div class="search-box" id="searchBox">
+  <div class="search-area" id="searchArea">
 
-    <div class="container search-inner">
+    <div class="container">
 
       <input
+        type="text"
         id="searchInput"
-        type="search"
         placeholder="جستجوی محصول..."
-        autocomplete="off"
       >
-
-      <button id="closeSearch">×</button>
 
     </div>
 
   </div>
 
 
-  <main>
+  <!-- ================= HERO ================= -->
 
-    <!-- ================= HERO ================= -->
+  <main>
 
     <section class="hero">
 
-      <div class="hero-pattern"></div>
+      <img
+        src="hero.jpg"
+        alt="نوش‌آیین؛ عطر طبیعت و طعم اصالت"
+        class="hero-image"
+      >
 
-      <div class="container hero-inner">
+      <div class="hero-overlay"></div>
 
-        <div class="hero-content">
+      <div class="container hero-content">
 
-          <span class="eyebrow">
+        <div class="hero-text">
+
+          <span class="hero-small">
             نوش‌آیین
           </span>
 
           <h1>
             عطر طبیعت،
-            <span>طعم اصالت</span>
+            <br>
+            طعم اصالت
           </h1>
 
           <p>
-            مجموعه‌ای از چای، دمنوش، قهوه، روغن‌های طبیعی
-            و محصولات منتخب با حال‌وهوای اصیل ایرانی.
+            انتخابی از چای، دمنوش، قهوه و روغن‌های طبیعی
+            با حال‌وهوای اصیل ایرانی.
           </p>
 
-          <div class="hero-actions">
+          <div class="hero-buttons">
 
-            <a href="#categories" class="btn btn-primary">
-              مشاهده دسته‌بندی‌ها
+            <a
+              href="category.html?category=tea"
+              class="primary-button"
+            >
+              مشاهده چای و دمنوش
             </a>
 
-            <a href="#story" class="btn btn-outline">
-              درباره نوش‌آیین
+            <a
+              href="#categories"
+              class="secondary-button"
+            >
+              کشف نوش‌آیین
             </a>
 
-          </div>
-
-        </div>
-
-        <div class="hero-visual">
-
-          <div class="hero-orb"></div>
-
-          <div class="hero-card hero-card-main">
-            <span>طبیعت</span>
-            <strong>اصالت</strong>
-            <small>کیفیت و انتخاب</small>
-          </div>
-
-          <div class="hero-card hero-card-small">
-            🌿
           </div>
 
         </div>
@@ -152,22 +158,25 @@
 
     <!-- ================= CATEGORIES ================= -->
 
-    <section class="categories-section" id="categories">
+    <section
+      class="categories-section"
+      id="categories"
+    >
 
       <div class="container">
 
         <div class="section-heading">
 
-          <div>
-            <span class="section-kicker">انتخاب شما</span>
+          <span>
+            مجموعه نوش‌آیین
+          </span>
 
-            <h2>
-              دنیای نوش‌آیین
-            </h2>
-          </div>
+          <h2>
+            دنیایی از طعم و طبیعت
+          </h2>
 
           <p>
-            دسته موردنظرتان را انتخاب کنید و محصولات همان بخش را ببینید.
+            دسته‌بندی موردنظر خود را انتخاب کنید.
           </p>
 
         </div>
@@ -177,96 +186,96 @@
 
           <a
             href="category.html?category=oils"
-            class="category-card category-oils"
+            class="category-card"
           >
 
             <div class="category-icon">
               🫒
             </div>
 
-            <div class="category-content">
-              <span>01</span>
-              <h3>روغن‌ها</h3>
-              <p>
-                روغن‌های طبیعی در اندازه‌ها و انواع مختلف
-              </p>
-            </div>
+            <h3>
+              روغن‌ها
+            </h3>
 
-            <div class="category-arrow">
-              ←
-            </div>
+            <p>
+              روغن‌های طبیعی و گیاهی
+            </p>
+
+            <span>
+              مشاهده محصولات ←
+            </span>
 
           </a>
 
 
           <a
             href="category.html?category=tea"
-            class="category-card category-tea"
+            class="category-card"
           >
 
             <div class="category-icon">
               🍵
             </div>
 
-            <div class="category-content">
-              <span>02</span>
-              <h3>چای و دمنوش</h3>
-              <p>
-                چای‌های متنوع و دمنوش‌های طبیعی
-              </p>
-            </div>
+            <h3>
+              چای و دمنوش
+            </h3>
 
-            <div class="category-arrow">
-              ←
-            </div>
+            <p>
+              چای‌های ایرانی و دمنوش‌های گیاهی
+            </p>
+
+            <span>
+              مشاهده محصولات ←
+            </span>
 
           </a>
 
 
           <a
             href="category.html?category=coffee"
-            class="category-card category-coffee"
+            class="category-card"
           >
 
             <div class="category-icon">
               ☕
             </div>
 
-            <div class="category-content">
-              <span>03</span>
-              <h3>پودر قهوه و شکلات</h3>
-              <p>
-                قهوه فوری، کافی‌میکس و نوشیدنی‌های شکلاتی
-              </p>
-            </div>
+            <h3>
+              پودر قهوه و شکلات
+            </h3>
 
-            <div class="category-arrow">
-              ←
-            </div>
+            <p>
+              قهوه فوری، کافی میکس و هات چاکلت
+            </p>
+
+            <span>
+              مشاهده محصولات ←
+            </span>
 
           </a>
 
 
           <a
             href="category.html?category=featured"
-            class="category-card category-featured"
+            class="category-card featured-category"
           >
 
             <div class="category-icon">
-              ✦
+              🌿
             </div>
 
-            <div class="category-content">
-              <span>04</span>
-              <h3>محصولات منتخب</h3>
-              <p>
-                انتخاب ویژه نوش‌آیین
-              </p>
-            </div>
+            <h3>
+              محصولات منتخب
+            </h3>
 
-            <div class="category-arrow">
-              ←
-            </div>
+            <p>
+              انتخاب‌های ویژه نوش‌آیین
+            </p>
+
+            <span>
+              مشاهده محصولات ←
+            </span>
 
           </a>
 
@@ -279,7 +288,7 @@
 
     <!-- ================= STORY ================= -->
 
-    <section class="story-section" id="story">
+    <section class="story-section">
 
       <div class="container story-grid">
 
@@ -287,10 +296,13 @@
 
           <div class="story-arch">
 
-            <div class="story-arch-inner">
-              <span>نوش‌آیین</span>
-              <strong>از طبیعت<br>تا فنجان</strong>
+            <div class="story-decoration">
+              ❋
             </div>
+
+            <span>
+              نوش‌آیین
+            </span>
 
           </div>
 
@@ -299,31 +311,34 @@
 
         <div class="story-content">
 
-          <span class="section-kicker">
-            درباره نوش‌آیین
+          <span class="section-label">
+            داستان نوش‌آیین
           </span>
 
           <h2>
-            انتخابی با
-            <span>حس ایرانی</span>
+            طبیعت،
+            <br>
+            در قاب اصالت ایرانی
           </h2>
 
           <p>
-            نوش‌آیین با هدف ارائه مجموعه‌ای متنوع از محصولات
-            طبیعی و نوشیدنی‌های محبوب شکل گرفته است.
+            نوش‌آیین با الهام از طبیعت و فرهنگ ایرانی،
+            مجموعه‌ای از محصولات را برای لحظه‌های آرام
+            و دلنشین زندگی گرد هم آورده است.
           </p>
 
           <p>
-            در این فروشگاه تلاش می‌کنیم محصولات را با
-            اطلاعات شفاف، ظاهر حرفه‌ای و تجربه‌ای ساده
-            برای خرید در اختیار شما قرار دهیم.
+            از عطر چای و دمنوش گرفته تا قهوه و روغن‌های
+            طبیعی؛ هر انتخاب در نوش‌آیین با نگاهی ساده،
+            اصیل و متفاوت ارائه می‌شود.
           </p>
 
-          <div class="story-line"></div>
-
-          <span class="story-note">
-            طبیعت، سادگی و اصالت؛ سه اصل نوش‌آیین.
-          </span>
+          <a
+            href="#categories"
+            class="text-link"
+          >
+            آشنایی با مجموعه نوش‌آیین ←
+          </a>
 
         </div>
 
@@ -334,18 +349,18 @@
 
     <!-- ================= BENEFITS ================= -->
 
-    <section class="benefits-section" id="benefits">
+    <section class="benefits-section">
 
       <div class="container">
 
-        <div class="section-heading centered">
+        <div class="section-heading">
 
-          <span class="section-kicker">
+          <span>
             چرا نوش‌آیین؟
           </span>
 
           <h2>
-            تجربه‌ای متفاوت از خرید
+            انتخابی با حال‌وهوای متفاوت
           </h2>
 
         </div>
@@ -353,36 +368,71 @@
 
         <div class="benefits-grid">
 
-          <div class="benefit-card">
-            <div class="benefit-icon">✦</div>
-            <h3>انتخاب متنوع</h3>
+          <div class="benefit">
+
+            <div class="benefit-icon">
+              🌿
+            </div>
+
+            <h3>
+              محصولات متنوع
+            </h3>
+
             <p>
-              مجموعه‌ای از محصولات در دسته‌های مختلف
+              مجموعه‌ای از چای، دمنوش، قهوه و روغن‌ها
             </p>
+
           </div>
 
-          <div class="benefit-card">
-            <div class="benefit-icon">◇</div>
-            <h3>اطلاعات شفاف</h3>
+
+          <div class="benefit">
+
+            <div class="benefit-icon">
+              ✦
+            </div>
+
+            <h3>
+              انتخاب با دقت
+            </h3>
+
             <p>
-              اطلاعات محصول، قیمت و وضعیت موجودی
+              معرفی ساده و شفاف محصولات
             </p>
+
           </div>
 
-          <div class="benefit-card">
-            <div class="benefit-icon">❖</div>
-            <h3>خرید ساده</h3>
+
+          <div class="benefit">
+
+            <div class="benefit-icon">
+              🫖
+            </div>
+
+            <h3>
+              حال خوب روزمره
+            </h3>
+
             <p>
-              مسیر ساده و واضح از انتخاب تا سفارش
+              همراهی برای لحظه‌های آرام و دلچسب
             </p>
+
           </div>
 
-          <div class="benefit-card">
-            <div class="benefit-icon">☘</div>
-            <h3>حال‌وهوای طبیعی</h3>
+
+          <div class="benefit">
+
+            <div class="benefit-icon">
+              ♡
+            </div>
+
+            <h3>
+              هویت ایرانی
+            </h3>
+
             <p>
-              تجربه‌ای با الهام از طبیعت و فرهنگ ایرانی
+              طراحی و فضایی الهام‌گرفته از فرهنگ ایرانی
             </p>
+
           </div>
 
         </div>
@@ -400,31 +450,28 @@
 
         <div class="promo-box">
 
-          <div class="promo-content">
+          <div>
 
             <span>
               نوش‌آیین
             </span>
 
             <h2>
-              انتخاب خودت را
-              <strong>آیین کن.</strong>
+              عطر طبیعت را کشف کن
             </h2>
 
             <p>
-              دسته‌بندی مورد علاقه‌ات را پیدا کن
-              و محصولات نوش‌آیین را ببین.
+              مجموعه محصولات نوش‌آیین را ببین.
             </p>
 
-            <a href="#categories" class="btn btn-light">
-              شروع انتخاب
-            </a>
-
           </div>
 
-          <div class="promo-decoration">
-            ✦
-          </div>
+          <a
+            href="#categories"
+            class="promo-button"
+          >
+            مشاهده مجموعه
+          </a>
 
         </div>
 
@@ -441,61 +488,65 @@
 
     <div class="container footer-grid">
 
-      <div class="footer-brand">
+      <div>
 
-        <a href="index.html" class="brand footer-logo">
+        <div class="footer-logo">
+          نوش‌آیین
+        </div>
 
-          <span class="brand-symbol">ن</span>
+        <p>
+          عطر طبیعت، طعم اصالت
+        </p>
 
-          <span class="brand-text">
-            <strong>نوش‌آیین</strong>
-            <small>طعم طبیعت، آیین اصالت</small>
-          </span>
+      </div>
 
+
+      <div>
+
+        <h3>
+          دسترسی سریع
+        </h3>
+
+        <a href="index.html">
+          خانه
         </a>
 
+        <a href="category.html?category=oils">
+          روغن‌ها
+        </a>
+
+        <a href="category.html?category=tea">
+          چای و دمنوش
+        </a>
+
+        <a href="category.html?category=coffee">
+          قهوه و شکلات
+        </a>
+
+      </div>
+
+
+      <div>
+
+        <h3>
+          نوش‌آیین
+        </h3>
+
         <p>
-          فروشگاه آنلاین چای، دمنوش، قهوه،
-          روغن‌های طبیعی و محصولات منتخب.
+          فروشگاه محصولات طبیعی،
+          چای، دمنوش، قهوه و روغن‌ها
         </p>
 
       </div>
 
-
-      <div class="footer-links">
-
-        <h4>دسترسی سریع</h4>
-
-        <a href="index.html">خانه</a>
-        <a href="#categories">دسته‌بندی‌ها</a>
-        <a href="#story">درباره نوش‌آیین</a>
-
-      </div>
+    </div>
 
 
-      <div class="footer-links">
+    <div class="footer-bottom">
 
-        <h4>دسته‌بندی‌ها</h4>
+      <div class="container">
 
-        <a href="category.html?category=oils">روغن‌ها</a>
-        <a href="category.html?category=tea">چای و دمنوش</a>
-        <a href="category.html?category=coffee">پودر قهوه و شکلات</a>
-        <a href="category.html?category=featured">محصولات منتخب</a>
-
-      </div>
-
-
-      <div class="footer-contact">
-
-        <h4>نوش‌آیین</h4>
-
-        <p>
-          انتخابی از دل طبیعت
-        </p>
-
-        <span>
-          © ۱۴۰۵ نوش‌آیین
-        </span>
+        © نوش‌آیین — تمامی حقوق محفوظ است.
 
       </div>
 
@@ -506,32 +557,56 @@
 
   <!-- ================= CART ================= -->
 
-  <div class="cart-overlay" id="cartOverlay"></div>
+  <div
+    class="cart-overlay"
+    id="cartOverlay"
+  ></div>
 
-  <aside class="cart-panel" id="cartPanel">
+
+  <aside
+    class="cart-panel"
+    id="cartPanel"
+  >
 
     <div class="cart-header">
 
-      <div>
-        <span>سبد خرید</span>
-        <h3>انتخاب‌های شما</h3>
-      </div>
+      <h2>
+        سبد خرید
+      </h2>
 
-      <button id="closeCart">×</button>
+      <button
+        id="closeCart"
+        aria-label="بستن"
+      >
+        ×
+      </button>
 
     </div>
 
-    <div class="cart-items" id="cartItems"></div>
+
+    <div
+      class="cart-items"
+      id="cartItems"
+    >
+    </div>
+
 
     <div class="cart-footer">
 
-      <div class="cart-total-row">
-        <span>مجموع</span>
-        <strong id="cartTotal">۰ تومان</strong>
+      <div class="cart-total">
+
+        <span>
+          مجموع
+        </span>
+
+        <strong id="cartTotal">
+          ۰ تومان
+        </strong>
+
       </div>
 
-      <button class="checkout-btn">
-        ادامه ثبت سفارش
+      <button class="checkout-button">
+        ادامه سفارش
       </button>
 
     </div>
@@ -542,4 +617,5 @@
   <script src="script.js"></script>
 
 </body>
-</html>
+
+            </html>
