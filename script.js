@@ -617,6 +617,21 @@ document.addEventListener("DOMContentLoaded", () => {
      INITIAL CART
   ===================================================== */
 
+   /* ================= CHECKOUT ================= */
+
+const checkoutButton =
+  document.getElementById("checkout-btn");
+
+checkoutButton?.addEventListener("click", () => {
+
+  if (cart.length === 0) {
+    alert("سبد خرید شما خالی است.");
+    return;
+  }
+
+  window.location.href = "checkout.html";
+
+});
   renderCart();
 
 });
