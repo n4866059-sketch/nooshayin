@@ -1,360 +1,150 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>محصول | نوش‌آیین</title>
 
   <meta
     name="description"
-    content="مشاهده مشخصات و اطلاعات محصول در فروشگاه نوش‌آیین"
+    content="مشاهده اطلاعات و جزئیات محصول در فروشگاه نوش‌آیین"
   >
 
-  <link rel="stylesheet" href="style.css">
+  <!-- فونت -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
 
-  <style>
-    /* =========================
-       PRODUCT PAGE
-    ========================= */
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
-    .product-page {
-      min-height: 100vh;
-      padding: 130px 7% 80px;
-    }
+  <link
+    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
 
-    .product-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+  <!-- استایل اصلی -->
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
-    .product-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #C6A15B;
-      text-decoration: none;
-      margin-bottom: 35px;
-      transition: 0.3s;
-    }
-
-    .product-back:hover {
-      color: #F3E8D7;
-      transform: translateX(5px);
-    }
-
-    .product-card {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 55px;
-      background: linear-gradient(
-        145deg,
-        rgba(11, 42, 34, 0.95),
-        rgba(6, 28, 23, 0.98)
-      );
-      border: 1px solid rgba(198, 161, 91, 0.25);
-      border-radius: 28px;
-      padding: 40px;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
-    }
-
-    .product-image-box {
-      min-height: 520px;
-      border-radius: 24px;
-      background:
-        radial-gradient(
-          circle at center,
-          rgba(198, 161, 91, 0.12),
-          transparent 60%
-        ),
-        #071D18;
-      border: 1px solid rgba(198, 161, 91, 0.2);
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      position: relative;
-      overflow: hidden;
-    }
-
-    .product-image-placeholder {
-      text-align: center;
-      color: #AAA49A;
-      padding: 30px;
-    }
-
-    .product-image-placeholder .icon {
-      font-size: 90px;
-      margin-bottom: 20px;
-      display: block;
-    }
-
-    .product-image-placeholder p {
-      margin: 0;
-      font-size: 15px;
-    }
-
-    .product-info {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .product-category {
-      color: #C6A15B;
-      font-size: 14px;
-      margin-bottom: 14px;
-    }
-
-    .product-title {
-      color: #F3E8D7;
-      font-size: clamp(28px, 4vw, 44px);
-      line-height: 1.5;
-      margin: 0 0 20px;
-    }
-
-    .product-price {
-      color: #C6A15B;
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 25px;
-    }
-
-    .product-description {
-      color: #D4CEC4;
-      font-size: 16px;
-      line-height: 2.1;
-      margin-bottom: 28px;
-    }
-
-    .product-specs {
-      border-top: 1px solid rgba(198, 161, 91, 0.18);
-      border-bottom: 1px solid rgba(198, 161, 91, 0.18);
-      padding: 20px 0;
-      margin-bottom: 30px;
-    }
-
-    .spec-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 9px 0;
-      color: #D4CEC4;
-    }
-
-    .spec-label {
-      color: #AAA49A;
-    }
-
-    .spec-value {
-      color: #F3E8D7;
-      text-align: left;
-    }
-
-    .stock-available {
-      color: #B9D6A8;
-    }
-
-    .stock-unavailable {
-      color: #D88A8A;
-    }
-
-    .product-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .add-cart-btn {
-      border: none;
-      cursor: pointer;
-      padding: 15px 28px;
-      border-radius: 12px;
-      background: #8F2027;
-      color: #F3E8D7;
-      font-family: inherit;
-      font-size: 16px;
-      transition: 0.3s;
-    }
-
-    .add-cart-btn:hover {
-      background: #A3242C;
-      transform: translateY(-2px);
-    }
-
-    .add-cart-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .back-category-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 15px 25px;
-      border-radius: 12px;
-      border: 1px solid rgba(198, 161, 91, 0.35);
-      color: #C6A15B;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    .back-category-btn:hover {
-      background: rgba(198, 161, 91, 0.08);
-    }
-
-    .product-not-found {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 80px 20px;
-    }
-
-    .product-not-found h1 {
-      color: #F3E8D7;
-      margin-bottom: 20px;
-    }
-
-    .product-not-found p {
-      color: #AAA49A;
-      margin-bottom: 30px;
-    }
-
-    @media (max-width: 800px) {
-
-      .product-page {
-        padding: 110px 5% 60px;
-      }
-
-      .product-card {
-        grid-template-columns: 1fr;
-        padding: 22px;
-        gap: 30px;
-      }
-
-      .product-image-box {
-        min-height: 350px;
-      }
-
-      .product-title {
-        font-size: 30px;
-      }
-
-      .product-price {
-        font-size: 24px;
-      }
-
-      .product-actions {
-        flex-direction: column;
-      }
-
-      .add-cart-btn,
-      .back-category-btn {
-        width: 100%;
-      }
-    }
-  </style>
 </head>
+
 
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
 
-    <div class="logo">
-      نوش‌آیین
+  <!-- =========================================
+       HEADER
+  ========================================== -->
+
+  <header class="product-header">
+
+    <div class="product-header-inner">
+
+      <a
+        href="index.html"
+        class="product-brand"
+      >
+        نوش‌آیین
+      </a>
+
+
+      <a
+        href="category.html?category=oils"
+        class="product-back"
+        id="backToCategory"
+      >
+        ← بازگشت به محصولات
+      </a>
+
     </div>
-
-    <nav class="main-nav">
-      <a href="index.html">خانه</a>
-      <a href="category.html?category=oils">روغن‌ها</a>
-      <a href="category.html?category=tea">چای و دمنوش</a>
-      <a href="category.html?category=coffee">پودر قهوه و شکلات</a>
-    </nav>
-
-    <button
-      class="cart-button"
-      id="cartButton"
-      type="button"
-    >
-      🛒 سبد خرید
-      <span id="cartCount">0</span>
-    </button>
 
   </header>
 
 
-  <!-- PRODUCT -->
+
+  <!-- =========================================
+       PRODUCT PAGE
+  ========================================== -->
+
   <main class="product-page">
 
-    <div class="product-container">
 
-      <a
-        href="category.html?category=featured"
-        class="product-back"
-        id="productBack"
-      >
-        ← بازگشت
-      </a>
+    <!-- =======================================
+         PRODUCT CONTENT
+    ======================================== -->
 
-      <div id="productContent">
+    <section
+      id="productContent"
+      class="product-content"
+    >
 
-        <!-- محصول توسط product.js قرار می‌گیرد -->
+      <!--
+        اطلاعات محصول توسط product.js
+        اینجا قرار می‌گیرد.
+      -->
+
+      <div class="product-loading">
+
+        <div class="loading-icon">
+          🌿
+        </div>
+
+        <p>
+          در حال بارگذاری محصول...
+        </p>
 
       </div>
 
-    </div>
+    </section>
+
 
   </main>
 
 
-  <!-- CART PANEL -->
-  <aside
-    class="cart-panel"
-    id="cartPanel"
-    aria-hidden="true"
-  >
 
-    <div class="cart-header">
-      <h2>سبد خرید</h2>
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
 
-      <button
-        id="closeCart"
-        type="button"
-      >
-        ✕
-      </button>
-    </div>
+  <footer class="product-footer">
 
-    <div
-      id="cartItems"
-      class="cart-items"
-    >
-      <p>سبد خرید خالی است.</p>
-    </div>
+    <div class="product-footer-inner">
 
-    <div class="cart-footer">
-
-      <div class="cart-total">
-        <span>مجموع:</span>
-        <strong id="cartTotal">
-          ۰ تومان
-        </strong>
+      <div class="footer-brand">
+        نوش‌آیین
       </div>
 
-      <button
-        type="button"
-        class="checkout-btn"
-      >
-        ادامه سفارش
-      </button>
+      <p>
+        عطر طبیعت، طعم اصالت
+      </p>
+
+      <span>
+        © نوش‌آیین
+      </span>
 
     </div>
 
-  </aside>
+  </footer>
 
+
+
+  <!-- =========================================
+       CART
+  ========================================== -->
 
   <div
     id="cartOverlay"
@@ -362,9 +152,77 @@
   ></div>
 
 
+  <aside
+    id="cartPanel"
+    class="cart-panel"
+  >
+
+    <div class="cart-header">
+
+      <h2>
+        سبد خرید
+      </h2>
+
+      <button
+        id="closeCart"
+        class="close-cart"
+        aria-label="بستن سبد خرید"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div
+      id="cartItems"
+      class="cart-items"
+    >
+
+      <!-- سبد خرید توسط script.js ساخته می‌شود -->
+
+    </div>
+
+
+    <div class="cart-footer">
+
+      <div class="cart-total-row">
+
+        <span>
+          مجموع
+        </span>
+
+        <strong id="cartTotal">
+          ۰ تومان
+        </strong>
+
+      </div>
+
+
+      <button
+        id="checkout-btn"
+        class="checkout-btn"
+      >
+        ادامه ثبت سفارش
+      </button>
+
+    </div>
+
+  </aside>
+
+
+
+  <!-- =========================================
+       SCRIPTS
+  ========================================== -->
+
   <script src="script.js"></script>
+
   <script src="category.js"></script>
+
   <script src="product.js"></script>
 
+
 </body>
+
 </html>
