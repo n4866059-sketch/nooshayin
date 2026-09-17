@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
               </span>
 
               <strong>
-                ${product.brand || "نوش‌آیین"}
+                ${product.brand || "نیوشانیک"}
               </strong>
 
             </div>
