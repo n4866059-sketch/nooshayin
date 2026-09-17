@@ -5,70 +5,78 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ================= GET PRODUCT ID ================= */
-
-  const params =
-    new URLSearchParams(window.location.search);
-
-  const productId =
-    params.get("id");
-
-
-  /* ================= ELEMENTS ================= */
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get("id");
 
   const productContent =
     document.getElementById("productContent");
 
-
-  /* ================= CHECK PRODUCT DATA ================= */
-
-  if (
-    !productId ||
-    !window.products ||
-    typeof window.products !== "object"
-  ) {
-
-    showError();
+  if (!productContent) {
     return;
-
   }
-
 
   /* ================= FIND PRODUCT ================= */
 
   let product = null;
 
-  const categories =
-    Object.values(window.products);
+  if (
+    window.products &&
+    typeof window.products === "object"
+  ) {
 
-  for (const categoryProducts of categories) {
+    const categories =
+      Object.values(window.products);
 
-    if (!Array.isArray(categoryProducts)) {
-      continue;
-    }
+    for (const categoryProducts of categories) {
 
-    const found =
-      categoryProducts.find(
-        item => item.id === productId
-      );
+      if (!Array.isArray(categoryProducts)) {
+        continue;
+      }
 
-    if (found) {
+      const found =
+        categoryProducts.find(
+          item => item.id === productId
+        );
 
-      product = found;
-      break;
+      if (found) {
+        product = found;
+        break;
+      }
 
     }
 
   }
 
 
-  /* ================= PRODUCT NOT FOUND ================= */
+  /* ================= ERROR ================= */
 
   if (!product) {
 
-    showError();
-    return;
+    productContent.innerHTML = `
 
+      <div class="product-error">
+
+        <div class="product-error-icon">
+          🌿
+        </div>
+
+        <h1>
+          محصول پیدا نشد
+        </h1>
+
+        <p>
+          اطلاعات این محصول در دسترس نیست.
+        </p>
+
+        <a href="index.html">
+          بازگشت به صفحه اصلی
+        </a>
+
+      </div>
+
+    `;
+
+    return;
   }
 
 
@@ -76,16 +84,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function formatPrice(price) {
 
-    return Number(price)
-      .toLocaleString("fa-IR") +
-      " تومان";
+    return Number(price).toLocaleString("fa-IR")
+      + " تومان";
 
   }
 
 
   /* ================= STOCK ================= */
 
-  function stockText(stock) {
+  function getStockText(stock) {
 
     if (stock === 0) {
       return "ناموجود";
@@ -100,89 +107,242 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  /* ================= PRODUCT CONTENT ================= */
-
   const unavailable =
     product.stock === 0;
 
 
+  /* ================= DESCRIPTION ================= */
+
+  const description =
+    getDescription(product);
+
+
+  /* ================= PRODUCT PAGE ================= */
+
   productContent.innerHTML = `
 
-    <div class="product-page-image">
-
-      <div class="product-page-image-placeholder">
-        ${product.icon || "🌿"}
-      </div>
-
-    </div>
+    <div class="product-detail-layout">
 
 
-    <div class="product-page-info">
+      <!-- =================================
+           IMAGE
+      ================================== -->
 
-      <div class="product-page-category">
-        ${product.category}
-      </div>
+      <div class="product-image-section">
 
+        <div class="product-image-frame">
 
-      <h1 class="product-page-title">
-        ${product.name}
-      </h1>
+          <img
+            src="./${product.id}.jpg"
+            alt="${product.name}"
+            class="product-main-image"
+          >
 
-
-      <div class="product-page-price">
-        ${formatPrice(product.price)}
-      </div>
-
-
-      <div class="product-page-details">
-
-        <div class="product-detail-item">
-          <span>وضعیت</span>
-          <strong>
-            ${stockText(product.stock)}
-          </strong>
         </div>
 
-        ${
-          product.volume
-            ? `
-              <div class="product-detail-item">
-                <span>حجم / وزن</span>
-                <strong>${product.volume}</strong>
+      </div>
+
+
+      <!-- =================================
+           INFORMATION
+      ================================== -->
+
+      <div class="product-information">
+
+
+        <!-- CATEGORY -->
+
+        <div class="product-category-label">
+
+          ${product.category || "محصولات نوش‌آیین"}
+
+        </div>
+
+
+        <!-- NAME -->
+
+        <h1 class="product-main-title">
+
+          ${product.name}
+
+        </h1>
+
+
+        <!-- PRICE -->
+
+        <div class="product-price-box">
+
+          <span>
+            قیمت محصول
+          </span>
+
+          <strong>
+            ${formatPrice(product.price)}
+          </strong>
+
+        </div>
+
+
+        <!-- BASIC INFORMATION -->
+
+        <section class="product-info-section">
+
+          <h2>
+            اطلاعات محصول
+          </h2>
+
+
+          <div class="product-info-grid">
+
+
+            <div class="info-box">
+
+              <span>
+                برند
+              </span>
+
+              <strong>
+                ${product.brand || "نوش‌آیین"}
+              </strong>
+
+            </div>
+
+
+            ${
+              product.volume
+              ?
+              `
+              <div class="info-box">
+
+                <span>
+                  حجم / وزن
+                </span>
+
+                <strong>
+                  ${product.volume}
+                </strong>
+
               </div>
-            `
-            : ""
+              `
+              :
+              ""
+            }
+
+
+            <div class="info-box">
+
+              <span>
+                وضعیت
+              </span>
+
+              <strong class="${product.stock === 0 ? "out-stock" : ""}">
+
+                ${getStockText(product.stock)}
+
+              </strong>
+
+            </div>
+
+
+          </div>
+
+        </section>
+
+
+        <!-- DESCRIPTION -->
+
+        <section class="product-info-section">
+
+          <h2>
+            درباره محصول
+          </h2>
+
+          <div class="product-description-text">
+
+            ${description}
+
+          </div>
+
+        </section>
+
+
+        <!-- ORDER -->
+
+        ${
+          unavailable
+          ?
+          `
+          <div class="unavailable-box">
+            این محصول در حال حاضر ناموجود است.
+          </div>
+          `
+          :
+          `
+          <section class="product-order-section">
+
+            <h2>
+              تعداد سفارش
+            </h2>
+
+
+            <div class="quantity-row">
+
+
+              <button
+                type="button"
+                id="quantityMinus"
+                class="quantity-button"
+              >
+                −
+              </button>
+
+
+              <input
+                type="number"
+                id="productQuantity"
+                class="quantity-input"
+                value="1"
+                min="1"
+                max="${product.stock}"
+              >
+
+
+              <button
+                type="button"
+                id="quantityPlus"
+                class="quantity-button"
+              >
+                +
+              </button>
+
+
+            </div>
+
+
+            <div class="stock-hint">
+
+              حداکثر قابل سفارش:
+              ${Number(product.stock).toLocaleString("fa-IR")}
+              عدد
+
+            </div>
+
+
+            <button
+              type="button"
+              id="addProductButton"
+              class="product-add-button"
+            >
+
+              🛒
+              افزودن به سبد خرید
+
+            </button>
+
+          </section>
+          `
         }
 
-      </div>
-
-
-      <div class="product-page-description">
-
-        <h2>
-          درباره محصول
-        </h2>
-
-        <p>
-          ${getDescription(product)}
-        </p>
-
-      </div>
-
-
-      <div class="product-page-actions">
-
-        <button
-          class="product-add-button"
-          id="addProductButton"
-          ${unavailable ? "disabled" : ""}
-        >
-          ${
-            unavailable
-              ? "ناموجود"
-              : "افزودن به سبد خرید 🛒"
-          }
-        </button>
 
       </div>
 
@@ -191,30 +351,127 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
 
 
-  /* ================= ADD TO CART ================= */
+  /* =========================================
+     QUANTITY
+  ========================================== */
 
-  const addButton =
-    document.getElementById("addProductButton");
+  if (!unavailable) {
+
+    const quantityInput =
+      document.getElementById("productQuantity");
+
+    const minusButton =
+      document.getElementById("quantityMinus");
+
+    const plusButton =
+      document.getElementById("quantityPlus");
+
+    const addButton =
+      document.getElementById("addProductButton");
 
 
-  if (addButton && !unavailable) {
+    function getQuantity() {
 
-    addButton.addEventListener("click", () => {
+      let quantity =
+        parseInt(quantityInput.value, 10);
 
-      if (typeof window.addToCart === "function") {
-
-        window.addToCart(
-          product.name,
-          product.price
-        );
-
-      } else {
-
-        alert("سبد خرید هنوز آماده نشده است.");
-
+      if (
+        isNaN(quantity) ||
+        quantity < 1
+      ) {
+        quantity = 1;
       }
 
-    });
+      if (
+        product.stock !== null &&
+        quantity > product.stock
+      ) {
+        quantity = product.stock;
+      }
+
+      quantityInput.value = quantity;
+
+      return quantity;
+
+    }
+
+
+    minusButton.addEventListener(
+      "click",
+      () => {
+
+        let quantity =
+          getQuantity();
+
+        if (quantity > 1) {
+          quantity--;
+        }
+
+        quantityInput.value =
+          quantity;
+
+      }
+    );
+
+
+    plusButton.addEventListener(
+      "click",
+      () => {
+
+        let quantity =
+          getQuantity();
+
+        if (
+          product.stock === null ||
+          quantity < product.stock
+        ) {
+          quantity++;
+        }
+
+        quantityInput.value =
+          quantity;
+
+      }
+    );
+
+
+    quantityInput.addEventListener(
+      "change",
+      getQuantity
+    );
+
+
+    /* ================= ADD TO CART ================= */
+
+    addButton.addEventListener(
+      "click",
+      () => {
+
+        const quantity =
+          getQuantity();
+
+
+        if (
+          typeof window.addToCart === "function"
+        ) {
+
+          /*
+            فعلاً تعداد انتخاب‌شده را
+            به تابع سبد خرید می‌فرستیم.
+            در مرحله سبد خرید این بخش
+            کامل‌تر می‌شود.
+          */
+
+          window.addToCart(
+            product.name,
+            product.price,
+            quantity
+          );
+
+        }
+
+      }
+    );
 
   }
 
@@ -224,19 +481,34 @@ document.addEventListener("DOMContentLoaded", () => {
   document.title =
     `${product.name} | نوش‌آیین`;
 
+
+
+  /* ================= BACK LINK ================= */
+
+  const backLink =
+    document.getElementById("backToCategory");
+
+  if (
+    backLink &&
+    product.categoryKey
+  ) {
+
+    backLink.href =
+      `category.html?category=${product.categoryKey}`;
+
+  }
+
 });
 
 
 /* =====================================================
-   PRODUCT DESCRIPTION
+   PRODUCT DESCRIPTIONS
 ===================================================== */
 
 function getDescription(product) {
 
   if (product.description) {
-
     return product.description;
-
   }
 
 
@@ -301,45 +573,7 @@ function getDescription(product) {
 
   return (
     descriptions[product.id] ||
-    "محصولی از مجموعه نوش‌آیین. اطلاعات تکمیلی این محصول به‌زودی اضافه خواهد شد."
+    "محصولی از مجموعه نوش‌آیین."
   );
 
-}
-
-
-function showError() {
-
-  const productContent =
-    document.getElementById("productContent");
-
-
-  if (!productContent) {
-    return;
-  }
-
-
-  productContent.innerHTML = `
-
-    <div class="product-error">
-
-      <div class="product-error-icon">
-        🌿
-      </div>
-
-      <h1>
-        محصول پیدا نشد
-      </h1>
-
-      <p>
-        اطلاعات این محصول در حال حاضر در دسترس نیست.
-      </p>
-
-      <a href="index.html">
-        بازگشت به صفحه اصلی
-      </a>
-
-    </div>
-
-  `;
-
-    }
+             }
