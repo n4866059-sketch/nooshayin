@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ثبت سفارش | نوش‌آیین</title>
+
+  <meta
+    name="description"
+    content="ثبت سفارش محصولات نوش‌آیین"
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+
+  <header class="checkout-header">
+
+    <div class="checkout-header-inner">
+
+      <a href="index.html" class="checkout-brand">
+        نوش‌آیین
+      </a>
+
+      <a href="javascript:history.back()" class="checkout-back">
+        ← بازگشت
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================= MAIN ================= -->
+
+  <main class="checkout-page">
+
+    <div class="checkout-container">
+
+      <!-- TITLE -->
+
+      <section class="checkout-title">
+
+        <span class="checkout-eyebrow">
+          NOOSH-AYIN
+        </span>
+
+        <h1>
+          ثبت سفارش
+        </h1>
+
+        <p>
+          اطلاعات خود را وارد کنید تا سفارش شما ثبت شود.
+        </p>
+
+      </section>
+
+
+      <!-- CONTENT -->
+
+      <div class="checkout-layout">
+
+
+        <!-- ================= FORM ================= -->
+
+        <section class="checkout-form-card">
+
+          <div class="checkout-section-title">
+
+            <span class="checkout-section-icon">
+              👤
+            </span>
+
+            <div>
+              <h2>
+                اطلاعات گیرنده
+              </h2>
+
+              <p>
+                اطلاعات لازم برای ارسال سفارش
+              </p>
+            </div>
+
+          </div>
+
+
+          <form id="checkoutForm">
+
+
+            <!-- NAME -->
+
+            <div class="checkout-field">
+
+              <label for="customerName">
+                نام و نام خانوادگی
+              </label>
+
+              <input
+                type="text"
+                id="customerName"
+                name="customerName"
+                placeholder="مثلاً نفس احمدی"
+                required
+              >
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div class="checkout-field">
+
+              <label for="customerPhone">
+                شماره موبایل
+              </label>
+
+              <input
+                type="tel"
+                id="customerPhone"
+                name="customerPhone"
+                placeholder="09xxxxxxxxx"
+                inputmode="numeric"
+                required
+              >
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="checkout-field">
+
+              <label for="customerAddress">
+                آدرس کامل
+              </label>
+
+              <textarea
+                id="customerAddress"
+                name="customerAddress"
+                rows="4"
+                placeholder="استان، شهر، خیابان، کوچه، پلاک..."
+                required
+              ></textarea>
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="checkout-field">
+
+              <label for="orderNote">
+                توضیحات سفارش
+                <span>
+                  اختیاری
+                </span>
+              </label>
+
+              <textarea
+                id="orderNote"
+                name="orderNote"
+                rows="3"
+                placeholder="اگر توضیحی درباره سفارش دارید..."
+              ></textarea>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <button
+              type="submit"
+              class="submit-order-button"
+            >
+              ثبت سفارش
+            </button>
+
+          </form>
+
+        </section>
+
+
+        <!-- ================= ORDER SUMMARY ================= -->
+
+        <aside class="checkout-summary">
+
+          <div class="summary-header">
+
+            <span>
+              🛍️
+            </span>
+
+            <div>
+              <h2>
+                خلاصه سفارش
+              </h2>
+
+              <p>
+                محصولات انتخاب‌شده
+              </p>
+            </div>
+
+          </div>
+
+
+          <div
+            id="checkoutItems"
+            class="checkout-items"
+          >
+          </div>
+
+
+          <div class="summary-divider"></div>
+
+
+          <div class="summary-total">
+
+            <span>
+              مبلغ نهایی
+            </span>
+
+            <strong id="checkoutTotal">
+              ۰ تومان
+            </strong>
+
+          </div>
+
+        </aside>
+
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer class="checkout-footer">
+
+    <div class="checkout-footer-inner">
+
+      <div class="footer-brand">
+        نوش‌آیین
+      </div>
+
+      <p>
+        عطر طبیعت، طعم اصالت
+      </p>
+
+      <span>
+        © نوش‌آیین
+      </span>
+
+    </div>
+
+  </footer>
+
+
+  <script src="checkout.js"></script>
+
+</body>
+
+                </html>
