@@ -2662,3 +2662,544 @@ input {
   }
 
    }
+
+/* =========================================================
+   NOOSH-AYIN HOMEPAGE — IMAGE DESIGN OVERRIDE
+   ========================================================= */
+
+/* ================= CATEGORY CARDS ================= */
+
+.categories-section .category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.categories-section .category-card {
+  position: relative;
+  min-height: 430px;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  background: #071D18;
+  border: 1px solid rgba(198, 161, 91, 0.28);
+  border-radius: 24px;
+
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.categories-section .category-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(198, 161, 91, 0.65);
+  box-shadow:
+    0 25px 55px rgba(0, 0, 0, 0.42),
+    0 0 25px rgba(198, 161, 91, 0.08);
+}
+
+
+/* تصویر */
+
+.categories-section .category-image {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+}
+
+.categories-section .category-image img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  transition: transform 0.7s ease;
+}
+
+.categories-section .category-card:hover .category-image img {
+  transform: scale(1.07);
+}
+
+
+/* لایه تاریک روی عکس */
+
+.categories-section .category-image::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(3, 15, 12, 0.98) 0%,
+      rgba(3, 15, 12, 0.78) 35%,
+      rgba(3, 15, 12, 0.25) 70%,
+      rgba(3, 15, 12, 0.05) 100%
+    );
+}
+
+
+/* محتوای کارت */
+
+.categories-section .category-card-content {
+  position: relative;
+  z-index: 3;
+
+  padding: 28px 25px 25px;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(3, 15, 12, 0.98),
+      rgba(3, 15, 12, 0.78),
+      transparent
+    );
+}
+
+
+/* آیکون */
+
+.categories-section .category-card-content .category-icon {
+  position: static;
+
+  width: 52px;
+  height: 52px;
+
+  margin-bottom: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(127, 24, 32, 0.82);
+  border: 1px solid rgba(198, 161, 91, 0.4);
+
+  font-size: 25px;
+}
+
+
+/* عنوان */
+
+.categories-section .category-card h3 {
+  position: relative;
+  z-index: 4;
+
+  margin: 0 0 8px;
+
+  color: #F3E8D7;
+  font-size: 22px;
+}
+
+
+/* توضیح */
+
+.categories-section .category-card p {
+  position: relative;
+  z-index: 4;
+
+  margin: 0 0 15px;
+
+  color: #D0C8BC;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+
+/* لینک */
+
+.categories-section .category-card span {
+  position: relative;
+  z-index: 4;
+
+  display: inline-block;
+
+  margin: 0;
+  padding: 0;
+
+  color: #C6A15B;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition: color 0.3s ease;
+}
+
+.categories-section .category-card:hover span {
+  color: #F3E8D7;
+}
+
+
+/* تزئین ظریف */
+
+.categories-section .category-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 150px;
+  height: 150px;
+
+  top: -70px;
+  right: -60px;
+
+  border: 1px solid rgba(198, 161, 91, 0.22);
+  border-radius: 50%;
+
+  z-index: 2;
+  pointer-events: none;
+}
+
+.categories-section .category-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 100px;
+  height: 100px;
+
+  bottom: -50px;
+  left: -40px;
+
+  border: 1px solid rgba(143, 32, 39, 0.4);
+  border-radius: 50%;
+
+  z-index: 2;
+  pointer-events: none;
+}
+
+
+/* ================= STORY ================= */
+
+.story-section .story-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.story-section .story-arch {
+  position: relative;
+
+  width: min(100%, 480px);
+  height: 570px;
+
+  overflow: hidden;
+
+  display: block;
+
+  border-radius: 240px 240px 25px 25px;
+
+  border: 1px solid rgba(198, 161, 91, 0.4);
+
+  background: #061C17;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+
+/* عکس داستان */
+
+.story-section .story-arch img {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  display: block;
+}
+
+
+/* لایه روی عکس */
+
+.story-section .story-arch::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(3, 15, 12, 0.9),
+      rgba(3, 15, 12, 0.15) 65%,
+      rgba(3, 15, 12, 0.05)
+    );
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+
+/* قاب داخلی */
+
+.story-section .story-arch::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 15px;
+
+  border-radius: 225px 225px 18px 18px;
+
+  border: 1px solid rgba(198, 161, 91, 0.32);
+
+  z-index: 3;
+
+  pointer-events: none;
+}
+
+
+/* تزئین */
+
+.story-section .story-arch .story-decoration {
+  position: absolute;
+
+  top: 25px;
+  right: 25px;
+
+  z-index: 4;
+
+  color: #C6A15B;
+
+  font-size: 28px;
+}
+
+
+/* نام برند */
+
+.story-section .story-arch > span {
+  position: absolute;
+
+  right: 30px;
+  bottom: 28px;
+
+  z-index: 4;
+
+  color: #F3E8D7;
+
+  font-size: 22px;
+  font-weight: 700;
+}
+
+
+/* ================= PROMO ================= */
+
+.promo-section .promo-box {
+  position: relative;
+
+  min-height: 340px;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+  border-radius: 26px;
+
+  border: 1px solid rgba(198, 161, 91, 0.32);
+
+  background: #061C17;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+
+/* عکس بنر */
+
+.promo-section .promo-image {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  display: block;
+}
+
+
+/* لایه روی بنر */
+
+.promo-section .promo-box::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3, 15, 12, 0.98) 0%,
+      rgba(3, 15, 12, 0.82) 38%,
+      rgba(3, 15, 12, 0.35) 72%,
+      rgba(3, 15, 12, 0.1) 100%
+    );
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+
+/* متن بنر */
+
+.promo-section .promo-content {
+  position: relative;
+
+  z-index: 3;
+
+  max-width: 560px;
+
+  padding: 60px;
+}
+
+
+/* نوشته بالای بنر */
+
+.promo-section .promo-content span {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #C6A15B;
+
+  font-size: 14px;
+}
+
+
+/* عنوان */
+
+.promo-section .promo-content h2 {
+  margin: 0 0 12px;
+
+  color: #F3E8D7;
+
+  font-size: 34px;
+}
+
+
+/* توضیح */
+
+.promo-section .promo-content p {
+  margin: 0 0 25px;
+
+  color: #EADFCE;
+
+  line-height: 1.9;
+}
+
+
+/* دکمه */
+
+.promo-section .promo-content .promo-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 48px;
+
+  padding: 0 25px;
+
+  border-radius: 11px;
+
+  background: #8F2027;
+
+  color: #F3E8D7;
+
+  text-decoration: none;
+
+  font-weight: 600;
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.promo-section .promo-content .promo-button:hover {
+  background: #A3242C;
+  transform: translateY(-2px);
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1000px) {
+
+  .categories-section .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .categories-section .category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .categories-section .category-card {
+    min-height: 400px;
+  }
+
+  .story-section .story-arch {
+    height: 500px;
+    border-radius: 220px 220px 22px 22px;
+  }
+
+  .promo-section .promo-box {
+    min-height: 470px;
+  }
+
+  .promo-section .promo-content {
+    max-width: 100%;
+    padding: 35px 25px;
+    margin-top: auto;
+  }
+
+  .promo-section .promo-box::after {
+    background:
+      linear-gradient(
+        to top,
+        rgba(3, 15, 12, 0.98) 0%,
+        rgba(3, 15, 12, 0.72) 45%,
+        rgba(3, 15, 12, 0.12) 100%
+      );
+  }
+
+  .promo-section .promo-content h2 {
+    font-size: 27px;
+  }
+
+   }
