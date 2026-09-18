@@ -1,164 +1,399 @@
+/* =====================================================
+   NOOSH-AYIN
+   CHECKOUT + SUPABASE
+===================================================== */
+
 document.addEventListener("DOMContentLoaded", () => {
-  const SUPABASE_URL = "https://umefwxhlockepsznjgzj.supabase.co";
+
+  /* ================= SUPABASE ================= */
+
+  const SUPABASE_URL =
+    "https://umefwxhlockepsznjgzj.supabase.co";
 
   const SUPABASE_KEY =
     "sb_publishable_78-CD34vrfp4CfHKVtkazw__Yf4shx7";
 
-  const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
-  const cart = JSON.parse(
-    localStorage.getItem("nooshAyinCart") || "[]"
-  );
 
-  const form = document.getElementById("checkoutForm");
-  const itemsContainer = document.getElementById("checkoutItems");
-  const totalElement = document.getElementById("checkoutTotal");
+  /* ================= ELEMENTS ================= */
 
-  if (!form || !itemsContainer || !totalElement) {
-    console.error("عناصر صفحه تسویه‌حساب پیدا نشدند.");
-    return;
+  const checkoutItems =
+    document.getElementById("checkoutItems");
+
+  const checkoutTotal =
+    document.getElementById("checkoutTotal");
+
+  const checkoutForm =
+    document.getElementById("checkoutForm");
+
+
+  /* ================= CART ================= */
+
+  let cart = JSON.parse(
+    localStorage.getItem("nooshAyinCart")
+  ) || [];
+
+
+  /* ================= PRICE ================= */
+
+  function formatPrice(number) {
+    return Number(number).toLocaleString("fa-IR") + " تومان";
   }
 
-  // نمایش محصولات سفارش
+
+  /* ================= SHOW CART ================= */
+
   function renderCheckout() {
+
+    if (!checkoutItems) return;
+
+    checkoutItems.innerHTML = "";
+
     if (cart.length === 0) {
-      itemsContainer.innerHTML = `
-        <div class="empty-checkout">
-          سبد خرید شما خالی است.
+
+      checkoutItems.innerHTML = `
+        <div class="checkout-empty">
+          <div>🛍️</div>
+          <p>سبد خرید شما خالی است.</p>
+          <a href="index.html">
+            بازگشت به فروشگاه
+          </a>
         </div>
       `;
 
-      totalElement.textContent = "۰ تومان";
+      if (checkoutTotal) {
+        checkoutTotal.textContent = "۰ تومان";
+      }
+
+      if (checkoutForm) {
+        checkoutForm.style.display = "none";
+      }
+
       return;
     }
+
 
     let total = 0;
 
-    itemsContainer.innerHTML = cart
-      .map((item) => {
-        const price = Number(item.price) || 0;
-        const quantity = Number(item.quantity) || 1;
-        const itemTotal = price * quantity;
 
-        total += itemTotal;
+    cart.forEach(item => {
 
-        return `
-          <div class="checkout-item">
-            <div>
-              <strong>${item.name}</strong>
-              <div>تعداد: ${quantity}</div>
-            </div>
+      const price =
+        Number(item.price) || 0;
 
-            <strong>
-              ${itemTotal.toLocaleString("fa-IR")} تومان
-            </strong>
-          </div>
-        `;
-      })
-      .join("");
+      const quantity =
+        Number(item.quantity) || 1;
 
-    totalElement.textContent =
-      `${total.toLocaleString("fa-IR")} تومان`;
+      const itemTotal =
+        price * quantity;
+
+      total += itemTotal;
+
+
+      const itemElement =
+        document.createElement("div");
+
+      itemElement.className =
+        "checkout-product";
+
+
+      itemElement.innerHTML = `
+        <div class="checkout-product-info">
+
+          <strong>
+            ${item.name}
+          </strong>
+
+          <span>
+            ${formatPrice(price)}
+          </span>
+
+        </div>
+
+        <div class="checkout-product-details">
+
+          <span>
+            تعداد:
+            ${quantity.toLocaleString("fa-IR")}
+          </span>
+
+          <strong>
+            ${formatPrice(itemTotal)}
+          </strong>
+
+        </div>
+      `;
+
+
+      checkoutItems.appendChild(
+        itemElement
+      );
+
+    });
+
+
+    if (checkoutTotal) {
+
+      checkoutTotal.textContent =
+        formatPrice(total);
+
+    }
+
   }
 
-  // محاسبه مبلغ کل
+
+  /* ================= TOTAL ================= */
+
   function calculateTotal() {
-    return cart.reduce((total, item) => {
-      const price = Number(item.price) || 0;
-      const quantity = Number(item.quantity) || 1;
 
-      return total + price * quantity;
-    }, 0);
+    return cart.reduce(
+      (total, item) => {
+
+        const price =
+          Number(item.price) || 0;
+
+        const quantity =
+          Number(item.quantity) || 1;
+
+        return total + (price * quantity);
+
+      },
+      0
+    );
+
   }
+
+
+  /* ================= SUBMIT ================= */
+
+  checkoutForm?.addEventListener(
+    "submit",
+    async (event) => {
+
+      event.preventDefault();
+
+
+      if (cart.length === 0) {
+
+        alert(
+          "سبد خرید شما خالی است."
+        );
+
+        return;
+
+      }
+
+
+      /* ===== CUSTOMER INFO ===== */
+
+      const customerName =
+        document
+          .getElementById("customerName")
+          ?.value.trim();
+
+
+      const customerPhone =
+        document
+          .getElementById("customerPhone")
+          ?.value.trim();
+
+
+      const customerAddress =
+        document
+          .getElementById("customerAddress")
+          ?.value.trim();
+
+
+      const orderNote =
+        document
+          .getElementById("orderNote")
+          ?.value.trim() || "";
+
+
+      /* ===== VALIDATION ===== */
+
+      if (
+        !customerName ||
+        !customerPhone ||
+        !customerAddress
+      ) {
+
+        alert(
+          "لطفاً اطلاعات ضروری را کامل کنید."
+        );
+
+        return;
+
+      }
+
+
+      /* ===== TOTAL ===== */
+
+      const total =
+        calculateTotal();
+
+
+      /* ===== ORDER DATA ===== */
+
+      const orderData = {
+
+        customer_name:
+          customerName,
+
+        phone:
+          customerPhone,
+
+        address:
+          customerAddress,
+
+        note:
+          orderNote,
+
+        items:
+          cart,
+
+        total:
+          total
+
+      };
+
+
+      /* ===== BUTTON ===== */
+
+      const submitButton =
+        checkoutForm.querySelector(
+          'button[type="submit"]'
+        );
+
+
+      if (submitButton) {
+
+        submitButton.disabled = true;
+
+        submitButton.textContent =
+          "در حال ثبت سفارش...";
+
+      }
+
+
+      /* ===== SEND TO SUPABASE ===== */
+
+      try {
+
+        const { error } =
+          await supabaseClient
+            .from("orders")
+            .insert([orderData]);
+
+
+        if (error) {
+
+          console.error(
+            "Supabase error:",
+            error
+          );
+
+          throw error;
+
+        }
+
+
+        /* ===== LOCAL BACKUP ===== */
+
+        const localOrder = {
+
+          id:
+            "NA-" + Date.now(),
+
+          customer: {
+
+            name:
+              customerName,
+
+            phone:
+              customerPhone,
+
+            address:
+              customerAddress,
+
+            note:
+              orderNote
+
+          },
+
+          items:
+            cart,
+
+          total:
+            total,
+
+          createdAt:
+            new Date().toISOString()
+
+        };
+
+
+        localStorage.setItem(
+          "nooshAyinLastOrder",
+          JSON.stringify(localOrder)
+        );
+
+
+        /* ===== CLEAR CART ===== */
+
+        localStorage.removeItem(
+          "nooshAyinCart"
+        );
+
+
+        /* ===== SUCCESS ===== */
+
+        alert(
+          "سفارش شما با موفقیت ثبت شد 🌿"
+        );
+
+
+        window.location.href =
+          "index.html";
+
+      }
+
+
+      catch (error) {
+
+        console.error(
+          "Order submission error:",
+          error
+        );
+
+
+        alert(
+          "متأسفانه ثبت سفارش انجام نشد. لطفاً دوباره تلاش کنید."
+        );
+
+
+        if (submitButton) {
+
+          submitButton.disabled = false;
+
+          submitButton.textContent =
+            "ثبت سفارش";
+
+        }
+
+      }
+
+    }
+  );
+
+
+  /* ================= START ================= */
 
   renderCheckout();
 
-  // ثبت سفارش
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    if (cart.length === 0) {
-      alert("سبد خرید شما خالی است.");
-      return;
-    }
-
-    const customerName =
-      document.getElementById("customerName")?.value.trim();
-
-    const phone =
-      document.getElementById("customerPhone")?.value.trim();
-
-    const address =
-      document.getElementById("customerAddress")?.value.trim();
-
-    const note =
-      document.getElementById("customerNote")?.value.trim() || "";
-
-    if (!customerName || !phone || !address) {
-      alert("لطفاً نام، شماره تماس و آدرس را وارد کنید.");
-      return;
-    }
-
-    const total = calculateTotal();
-
-    const orderData = {
-      customer_name: customerName,
-      phone: phone,
-      address: address,
-      note: note,
-      items: cart,
-      total: total
-    };
-
-    const submitButton =
-      form.querySelector('button[type="submit"]');
-
-    if (submitButton) {
-      submitButton.disabled = true;
-      submitButton.textContent = "در حال ثبت سفارش...";
-    }
-
-    try {
-      const { data, error } = await supabaseClient
-        .from("orders")
-        .insert([orderData])
-        .select()
-        .single();
-
-      if (error) {
-        console.error("Supabase error:", error);
-        throw error;
-      }
-
-      // ذخیره آخرین سفارش در مرورگر
-      localStorage.setItem(
-        "nooshAyinLastOrder",
-        JSON.stringify(data)
-      );
-
-      // پاک کردن سبد خرید
-      localStorage.removeItem("nooshAyinCart");
-
-      alert(
-        "سفارش شما با موفقیت ثبت شد. 🌿"
-      );
-
-      window.location.href = "index.html";
-
-    } catch (error) {
-      console.error("Order error:", error);
-
-      alert(
-        "متأسفانه ثبت سفارش انجام نشد. لطفاً دوباره تلاش کنید."
-      );
-
-      if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.textContent = "ثبت سفارش";
-      }
-    }
-  });
 });
