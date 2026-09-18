@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>داشبورد مدیریت | نوش‌آیین</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+
+<body>
+
+  <main class="admin-dashboard-page">
+
+    <!-- HEADER -->
+
+    <header class="admin-dashboard-header">
+
+      <div>
+
+        <div class="admin-dashboard-brand">
+          نوش‌آیین
+        </div>
+
+        <div class="admin-dashboard-subtitle">
+          داشبورد مدیریت فروشگاه
+        </div>
+
+      </div>
+
+
+      <button
+        type="button"
+        id="adminLogoutButton"
+        class="admin-logout-button"
+      >
+        خروج
+      </button>
+
+    </header>
+
+
+    <!-- STATS -->
+
+    <section class="admin-stats">
+
+      <div class="admin-stat-card">
+
+        <span class="admin-stat-title">
+          کل سفارش‌ها
+        </span>
+
+        <strong id="totalOrders">
+          ۰
+        </strong>
+
+      </div>
+
+
+      <div class="admin-stat-card">
+
+        <span class="admin-stat-title">
+          سفارش‌های جدید
+        </span>
+
+        <strong id="newOrders">
+          ۰
+        </strong>
+
+      </div>
+
+
+      <div class="admin-stat-card">
+
+        <span class="admin-stat-title">
+          مجموع فروش
+        </span>
+
+        <strong id="totalSales">
+          ۰ تومان
+        </strong>
+
+      </div>
+
+    </section>
+
+
+    <!-- ORDERS -->
+
+    <section class="admin-orders-section">
+
+      <div class="admin-section-header">
+
+        <div>
+
+          <h1>
+            سفارش‌ها
+          </h1>
+
+          <p>
+            سفارش‌های ثبت‌شده در فروشگاه نوش‌آیین
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          id="refreshOrdersButton"
+          class="admin-refresh-button"
+        >
+          بروزرسانی
+        </button>
+
+      </div>
+
+
+      <div
+        id="adminOrdersContainer"
+        class="admin-orders-container"
+      >
+
+        <div class="admin-loading">
+          در حال بارگذاری سفارش‌ها...
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- EMPTY / ERROR MESSAGE -->
+
+    <div
+      id="adminMessage"
+      class="admin-message"
+    ></div>
+
+
+  </main>
+
+
+  <script src="admin-dashboard.js"></script>
+
+</body>
+
+</html>
