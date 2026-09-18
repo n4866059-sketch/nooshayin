@@ -237,6 +237,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const total =
         calculateTotal();
 
+const shippingCost = 150000;
+const finalTotal = total + shippingCost;  
+
 
       /* ===== ORDER DATA ===== */
 
@@ -258,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
           cart,
 
         total:
-          total
+          finalTotal
 
       };
 
