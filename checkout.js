@@ -137,12 +137,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    if (checkoutTotal) {
+     if (checkoutTotal) {
 
-      checkoutTotal.textContent =
-        formatPrice(total);
+  const shippingCost = 150000;
+  const finalTotal = total + shippingCost;
 
-    }
+  checkoutTotal.textContent =
+    formatPrice(finalTotal);
+
+     }
 
   }
 
