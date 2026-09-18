@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>پنل مدیریت | نوش‌آیین</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+
+<body>
+
+  <main class="admin-login-page">
+
+    <section class="admin-login-card">
+
+      <div class="admin-login-logo">
+        نوش‌آیین
+      </div>
+
+      <div class="admin-login-subtitle">
+        پنل مدیریت فروشگاه
+      </div>
+
+
+      <form id="adminLoginForm">
+
+        <div class="admin-field">
+
+          <label for="adminEmail">
+            ایمیل
+          </label>
+
+          <input
+            type="email"
+            id="adminEmail"
+            placeholder="ایمیل مدیر"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="admin-field">
+
+          <label for="adminPassword">
+            رمز عبور
+          </label>
+
+          <input
+            type="password"
+            id="adminPassword"
+            placeholder="رمز عبور"
+            autocomplete="current-password"
+            required
+          >
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="admin-login-button"
+          id="adminLoginButton"
+        >
+          ورود به پنل
+        </button>
+
+      </form>
+
+
+      <div
+        id="adminLoginMessage"
+        class="admin-login-message"
+      ></div>
+
+    </section>
+
+  </main>
+
+
+  <script src="admin.js"></script>
+
+</body>
+
+</html>
