@@ -52,15 +52,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       data: { session }
     } = await supabaseClient.auth.getSession();
 
-
     if (!session) {
 
-      window.location.href =
-        "admin.html";
+      window.location.href = "admin.html";
 
       return false;
     }
-
 
     return true;
   }
@@ -71,8 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   function formatPrice(number) {
 
     return Number(number || 0)
-      .toLocaleString("fa-IR") +
-      " تومان";
+      .toLocaleString("fa-IR") + " تومان";
 
   }
 
@@ -83,11 +79,70 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (!date) return "—";
 
-    return new Date(date)
-      .toLocaleString("fa-IR", {
-        dateStyle: "medium",
-        timeStyle: "short"
-      });
+    return new Date(date).toLocaleString("fa-IR", {
+      dateStyle: "medium",
+      timeStyle: "short"
+    });
+
+  }
+
+
+  /* ================= STATUS ================= */
+
+  const statusOptions = [
+    "جدید",
+    "در حال آماده‌سازی",
+    "ارسال‌شده",
+    "تکمیل‌شده"
+  ];
+
+
+  /* ================= UPDATE STATUS ================= */
+
+  async function updateOrderStatus(orderId, newStatus, selectElement) {
+
+    selectElement.disabled = true;
+
+    try {
+
+      const { error } =
+        await supabaseClient
+          .from("orders")
+          .update({
+            status: newStatus
+          })
+          .eq("id", orderId);
+
+
+      if (error) {
+        throw error;
+      }
+
+
+      message.textContent =
+        "وضعیت سفارش با موفقیت بروزرسانی شد.";
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "Status update error:",
+        error
+      );
+
+      message.textContent =
+        "تغییر وضعیت سفارش انجام نشد.";
+
+      await loadOrders();
+
+    }
+
+    finally {
+
+      selectElement.disabled = false;
+
+    }
 
   }
 
@@ -131,33 +186,30 @@ document.addEventListener("DOMContentLoaded", async () => {
         "خطا در دریافت سفارش‌ها.";
 
       return;
-
     }
 
 
     message.textContent = "";
 
 
-    /* ================= STATS ================= */
-
     const ordersList =
       orders || [];
 
 
+    /* ================= STATS ================= */
+
     totalOrders.textContent =
-      ordersList.length
-        .toLocaleString("fa-IR");
+      ordersList.length.toLocaleString("fa-IR");
 
 
-    /*
-      فعلاً وضعیت سفارش در جدول نداریم،
-      بنابراین سفارش جدید را برای نمایش اولیه
-      برابر تعداد کل سفارش‌ها در نظر نمی‌گیریم.
-    */
+    const newOrdersCount =
+      ordersList.filter(
+        order => (order.status || "جدید") === "جدید"
+      ).length;
+
 
     newOrders.textContent =
-      ordersList.length
-        .toLocaleString("fa-IR");
+      newOrdersCount.toLocaleString("fa-IR");
 
 
     const sales =
@@ -200,6 +252,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         "admin-order-card";
 
 
+      const currentStatus =
+        order.status || "جدید";
+
+
       let itemsHTML = "";
 
 
@@ -237,6 +293,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
 
+      const statusOptionsHTML =
+        statusOptions.map(status => `
+          <option
+            value="${status}"
+            ${status === currentStatus ? "selected" : ""}
+          >
+            ${status}
+          </option>
+        `).join("");
+
+
       card.innerHTML = `
 
         <div class="admin-order-header">
@@ -256,6 +323,19 @@ document.addEventListener("DOMContentLoaded", async () => {
           <span class="admin-order-date">
             ${formatDate(order.created_at)}
           </span>
+
+        </div>
+
+
+        <div class="admin-order-status">
+
+          <span>
+            وضعیت سفارش
+          </span>
+
+          <select class="admin-status-select">
+            ${statusOptionsHTML}
+          </select>
 
         </div>
 
@@ -326,6 +406,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         </div>
 
       `;
+
+
+      const statusSelect =
+        card.querySelector(
+          ".admin-status-select"
+        );
+
+
+      statusSelect?.addEventListener(
+        "change",
+        () => {
+
+          updateOrderStatus(
+            order.id,
+            statusSelect.value,
+            statusSelect
+          );
+
+        }
+      );
 
 
       ordersContainer.appendChild(card);
